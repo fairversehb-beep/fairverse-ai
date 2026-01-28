@@ -1,0 +1,11 @@
+﻿{
+    "main":  "index.js",
+    "name":  "fairverse-ai",
+    "version":  "1.0.0",
+    "dependencies":  {
+
+                     },
+    "scripts":  {
+                    "start":  "node index.js"
+                }
+}

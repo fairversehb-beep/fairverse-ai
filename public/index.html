@@ -1,0 +1,30 @@
+<script>
+    let currentDID = localStorage.getItem("fairverse_did") || "";
+    
+    if (currentDID) {
+      document.getElementById("did").innerText = "你的 DID：" + currentDID;
+    }
+    
+    async function createCitizen() {
+      const res = await fetch("/citizen/create", { method: "POST" });
+      const data = await res.json();
+      currentDID = data.did;
+      localStorage.setItem("fairverse_did", currentDID);
+      document.getElementById("did").innerText = "你的 DID：" + currentDID;
+    }
+    
+    async function ask() {
+      if (!currentDID) {
+        alert("请先创建公民身份");
+        return;
+      }
+      const message = document.getElementById("msg").value;
+      const res = await fetch("/citizen/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ did: currentDID, message })
+      });
+      const data = await res.json();
+      document.getElementById("reply").innerText = JSON.stringify(data, null, 2);
+    }
+    </script>
